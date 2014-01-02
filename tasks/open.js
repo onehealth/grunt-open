@@ -9,11 +9,16 @@
 'use strict';
 
 var open = require('open');
+var path = require('path');
 
 module.exports = function(grunt) {
   grunt.registerMultiTask('open', 'Open urls and files from a grunt task', function() {
     var dest = this.data.url || this.data.file || this.data.path;
     var application = this.data.app || this.data.application;
+    var isRelativePath = this.data.isRelativePath || false;
+
+    // add relative path reference
+    if(isRelativePath) { dest = path.resolve(dest); }
 
     function callback(error){
     if (error !== null)
