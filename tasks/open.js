@@ -20,7 +20,7 @@ module.exports = function(grunt) {
       grunt.fail.warn(error);
     }
 
-    open(dest, application, callback);
+    open(typeof dest === 'function' ? dest.apply(grunt, arguments) : dest, application, callback);
 
     // give the spawn some time before its parent (us) dies
     // https://github.com/onehealth/grunt-open/issues/6
