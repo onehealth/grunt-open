@@ -14,6 +14,11 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('open', 'Open urls and files from a grunt task', function() {
     var dest = this.data.url || this.data.file || this.data.path;
     dest = typeof dest === 'function' ? dest() : dest;
+
+    if (typeof dest === 'string') {
+      dest = [dest]
+    }
+
     var application = this.data.app || this.data.application;
     var options = this.options();
 
@@ -28,11 +33,15 @@ module.exports = function(grunt) {
     var openOn = options.openOn;
     if (openOn) {
       grunt.event.on(openOn, function () {
-        open(dest, application, callback);
+        dest.forEach(function(dest){
+          open(dest, application, callback);
+        })
       });
     } else {
       setTimeout(function(){
-        open(dest, application, callback);
+        dest.forEach(function(dest){
+          open(dest, application, callback);
+        })
       }, options.delay);
     }
 
