@@ -16,7 +16,7 @@ module.exports = function(grunt) {
     dest = typeof dest === 'function' ? dest() : dest;
 
     if (typeof dest === 'string') {
-      dest = [dest]
+      dest = [dest];
     }
 
     var application = this.data.app || this.data.application;
@@ -35,13 +35,13 @@ module.exports = function(grunt) {
       grunt.event.on(openOn, function () {
         dest.forEach(function(dest){
           open(dest, application, callback);
-        })
+        });
       });
     } else {
       setTimeout(function(){
         dest.forEach(function(dest){
           open(dest, application, callback);
-        })
+        });
       }, options.delay);
     }
 
