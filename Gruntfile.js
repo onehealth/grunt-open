@@ -41,7 +41,15 @@ module.exports = function(grunt) {
         options: {
           openOn: 'nevertriggered'
         }
-      }
+      },
+      onOpenWithData: {
+        options: {
+          openOn: 'onOpenWithData'
+        },
+        url: function( url, port ) {
+          return url + ':' + port;
+        }
+      },
     }
   });
 
@@ -49,6 +57,14 @@ module.exports = function(grunt) {
     var done = this.async();
     setTimeout(function () {
       grunt.event.emit('openOnTrigger');
+      done();
+    }, 100);
+  });
+
+  grunt.registerTask('onOpenWithData', function () {
+    var done = this.async();
+    setTimeout(function () {
+      grunt.event.emit('onOpenWithData', 'http://0.0.0.0', 9000);
       done();
     }, 100);
   });
@@ -62,5 +78,5 @@ module.exports = function(grunt) {
   grunt.registerTask('default', ['jshint', 'test']);
 
   // test
-  grunt.registerTask('test', ['open', 'mockOnTrigger']);
+  grunt.registerTask('test', ['open', 'mockOnTrigger', 'onOpenWithData']);
 };
