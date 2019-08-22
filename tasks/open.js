@@ -27,7 +27,7 @@ module.exports = function(grunt) {
     // allows to wait for server start up before opening
     var openOn = options.openOn;
     if (openOn) {
-      grunt.event.on(openOn, function () {
+      grunt.event.once(openOn, function () {
         open(dest, application, callback);
       });
     } else {
